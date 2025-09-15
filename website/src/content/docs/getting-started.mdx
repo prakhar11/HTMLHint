@@ -1,51 +1,49 @@
----
-title: Getting Started
-description: How to set up HTMLHint in your project by adding it as a dev dependency and configuring it.
----
+<!DOCTYPE html>
+<html>
+    <head>
+         <link rel="stylesheet" type="text/css" href="css/style.css">
+         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    </head>
 
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+  <div class="row">
+   <body>
 
-1\. Use npm or yarn to install HTMLHint:
 
-<Tabs>
-  <TabItem label="npm">
-`npm install --save-dev htmlhint`
-  </TabItem>
-  <TabItem label="yarn">
-`yarn add --dev htmlhint`
-  </TabItem>
-</Tabs>
 
-2\. Create a `.htmlhintrc` configuration file in the root of your project with `htmlhint --init`. This will create a file with default rules. You can customize it as needed. For example, you can use the following configuration to enforce some common best practices:
 
-```json
-{
-  "alt-require": true,
-  "attr-lowercase": true,
-  "attr-no-duplication": true,
-  "attr-value-double-quotes": true,
-  "button-type-require": true,
-  "doctype-first": true,
-  "doctype-html5": true,
-  "frame-title-require": true,
-  "h1-require": true,
-  "html-lang-require": true,
-  "id-unique": true,
-  "main-require": true,
-  "meta-charset-require": true,
-  "meta-description-require": true,
-  "meta-viewport-require": true,
-  "spec-char-escape": true,
-  "src-not-empty": true,
-  "tag-no-obsolete": true,
-  "tag-pair": true,
-  "tagname-lowercase": true,
-  "title-require": true
-}
-```
 
-3\. Run HTMLHint on, for example, all the HTML files in your project:
 
-```shell
-npx htmlhint "**/*.html"
-```
+
+    <div class="col-md-3">
+      <h3>Categories</h3>
+      <div class="list-group">
+        <a href="/products?category=Electronics" class="list-group-item list-group-item-action">Electronics</a>
+        <a href="/products?category=Books" class="list-group-item list-group-item-action">Books</a>
+        <a href="/products?category=Clothing" class="list-group-item list-group-item-action">Clothing</a>
+      </div>
+    </div>
+    
+    <div class="col-md-9">
+      <div class="row">
+        {% for product in products %}
+        <div class="col-md-4 mb-3">
+          <div class="card h-100">
+            <img src="{{ url_for('static', filename=product.image_url) }}" class="card-img-top" alt="{{ product.name }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ product.name }}</h5>
+              <p class="card-text">₹{{ "%.2f"|format(product.price) }}</p>
+              <a href="{{ url_for('product_detail', product_id=product.id) }}" class="btn btn-primary">View Details</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+ 
+</div>
+
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+{% endblock %}
